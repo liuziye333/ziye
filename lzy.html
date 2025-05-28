@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子夜与虹妤 - 相遇的故事</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #c850c0;
+            --secondary-color: #e64a19;
+            --background-color: #faf7f2;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --light-text: #555555;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding-bottom: 50px;
+        }
+        
+        /* 头部样式 */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: var(--light-text);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* 故事容器 */
+        .stories-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .story-card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+        
+        .story-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .story-title::before,
+        .story-title::after {
+            content: "✧";
+            color: var(--primary-color);
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        
+        .date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .story-content {
+            font-size: 16px;
+            color: var(--light-text);
+            line-height: 2;
+        }
+        
+        .highlight {
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        /* 时间线样式 */
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 60px auto 0;
+            padding: 20px 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px 30px 0;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding: 10px 0 30px 40px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--card-color);
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--card-color);
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -10px;
+            border-left: 2px solid var(--primary-color);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+            border-right: 2px solid var(--primary-color);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            top: 10px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -12px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -12px;
+        }
+        
+        .timeline-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        /* 响应式设计 */
+        @media screen and (max-width: 768px) {
+            .main-title {
+                font-size: 28px;
+            }
+            
+            .story-card {
+                padding: 30px 25px;
+            }
+            
+            .story-title {
+                font-size: 20px;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                display: none;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header class="header">
+        <h1 class="main-title">子夜与虹妤</h1>
+        <p class="subtitle">关于两个灵魂相遇的温暖故事，跨越时光，依然鲜活</p >
+    </header>
+    
+    <!-- 故事容器 -->
+    <main class="stories-container">
+        <!-- 第一个故事卡片 -->
+        <article class="story-card">
+            <h2 class="story-title">子夜期待虹妤</h2>
+            <p class="date">相识于2002年10月21日</p >
+            <div class="story-content">
+                <p>那天，一个<span class="highlight">算不上成熟的男人</span>，怀着期待紧张的心情，回到了金堂。高铁嗖嗖地开了好久，他思考着她会不会看不上自己——那是他在电话里聊了好多夜晚的圆脸可爱女孩，这是第一次见真人。</p >
+                <p>后来他总说，那天她穿着黄色毛衣，在阳光下显得像舞台上的爱豆，可站在街道和她对望的时候，阳光刚好落在他头发上，比画本里的主角还让人觉得耀眼。</p >
+            </div>
+        </article>
+        
+        <!-- 第二个故事卡片 -->
+        <article class="story-card">
+            <h2 class="story-title">虹妤走向子夜</h2>
+            <p class="date">相识于2002年10月21日</p >
+            <div class="story-content">
+                <p>那天，一个<span class="highlight">算得上勇敢的女孩</span>，揣着攒了好久的车票钱，一个人跑到了金堂。火车哐当哐当开了好久，她心里又紧张又期待——那是她在电话里聊了好多夜晚的男人，这是第一次见真人。</p >
+                <p>后来她总说，那天他穿的冲锋衣有些幼稚，寸头有些难看，可站在街道和他对望的时候，阳光刚好落在他身上，比电话里的声音还让人觉得踏实。</p >
+            </div>
+        </article>
+        
+        <!-- 时间线 -->
+        <section class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">2002年10月</div>
+                    <p>第一次在金堂相遇，紧张又期待的初见，成为彼此心中难忘的记忆。</p >
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">2003年春天</div>
+                    <p>开始一起探索金堂的小巷，发现彼此都喜欢街角的那家书店。</p >
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">2005年冬天</div>
+                    <p>在初雪的日子里，一起堆了笨拙的雪人，笑声回荡在安静的街道。</p >
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">至今</div>
+                    <p>故事仍在继续，那些共同经历的时光，都成为了生命中温暖的印记。</p >
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer style="text-align: center; margin-top: 60px; color: var(--light-text); font-size: 14px;">
+        <p>子夜与虹妤的故事 | 记录相遇与陪伴的温暖时光</p >
+    </footer>
+</body>
+</html>
